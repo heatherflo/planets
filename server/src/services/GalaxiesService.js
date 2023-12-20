@@ -14,6 +14,13 @@ class GalaxiesService {
     return galaxies
   }
 
+  async getOneGalaxy(galaxyId) {
+    const galaxy = await dbContext.Galaxy.findById(galaxyId)
+    if (!galaxy) {
+      throw new Error('could not find galaxy')
+    }
+    return galaxy
+  }
 }
 
 export const galaxiesService = new GalaxiesService()

@@ -12,6 +12,7 @@ export class GalaxiesController extends BaseController {
       // console.log('is this working?')
       .post('', this.createGalaxy)
       .get('', this.getGalaxy)
+      .get('/:galaxyId', this.getOneGalaxy)
   }
   async createGalaxy(request, response, next) {
     try {
@@ -31,4 +32,13 @@ export class GalaxiesController extends BaseController {
     }
   }
 
+  async getOneGalaxy(request, response, next) {
+    try {
+      const galaxyId = request.params.galaxyId
+      const galaxy = await galaxiesService.getOneGalaxy(galaxyId)
+      response.send(galaxy)
+    } catch (error) {
+      next(error)
+    }
+  }
 }
