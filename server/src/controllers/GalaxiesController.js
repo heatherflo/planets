@@ -11,6 +11,7 @@ export class GalaxiesController extends BaseController {
     this.router
       // console.log('is this working?')
       .post('', this.createGalaxy)
+      .get('', this.getGalaxy)
   }
   async createGalaxy(request, response, next) {
     try {
@@ -21,7 +22,13 @@ export class GalaxiesController extends BaseController {
       next(error)
     }
   }
-
-
+  async getGalaxy(request, response, next) {
+    try {
+      const galaxies = await galaxiesService.getGalaxy()
+      response.send(galaxies)
+    } catch (error) {
+      next(error)
+    }
+  }
 
 }

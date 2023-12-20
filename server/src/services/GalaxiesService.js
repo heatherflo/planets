@@ -9,6 +9,10 @@ class GalaxiesService {
     return galaxy //return info to controller so it can go back to the user 
   }
 
+  async getGalaxy() {
+    const galaxies = await dbContext.Galaxy.find()
+    return galaxies
+  }
 
 }
 
