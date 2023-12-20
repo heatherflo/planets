@@ -7,6 +7,10 @@ class PlanetService {
     const planet = await dbContext.Planet.create(planetData)
     return planet
   }
+  async getPlanets() {
+    const planets = dbContext.Planet.find()
+    return planets
+  }
 
 }
 

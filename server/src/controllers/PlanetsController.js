@@ -18,7 +18,12 @@ export class PlanetsController extends BaseController {
       next(error)
     }
   }
-  getPlanets(arg0, getPlanet) {
-    throw new Error("Method not implemented.");
+  async getPlanets(request, response, next) {
+    try {
+      const planets = await planetsService.getPlanets()
+      response.send(planets)
+    } catch (error) {
+      next(error)
+    }
   }
 }
