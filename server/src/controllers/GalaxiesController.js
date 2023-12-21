@@ -2,6 +2,7 @@ import { response } from "express";
 import { galaxiesService } from "../services/GalaxiesService.js";
 import BaseController from "../utils/BaseController.js";
 import { Logger } from "../utils/Logger.js";
+import { planetsService } from "../services/PlanetsService.js";
 
 
 
@@ -13,6 +14,7 @@ export class GalaxiesController extends BaseController {
       .post('', this.createGalaxy)
       .get('', this.getGalaxy)
       .get('/:galaxyId', this.getOneGalaxy)
+      .get('/:galaxyId/planets', this.getPlanetsFromGalaxies)
   }
   async createGalaxy(request, response, next) {
     try {
@@ -37,6 +39,15 @@ export class GalaxiesController extends BaseController {
       const galaxyId = request.params.galaxyId
       const galaxy = await galaxiesService.getOneGalaxy(galaxyId)
       response.send(galaxy)
+    } catch (error) {
+      next(error)
+    }
+  }
+  async getPlanetsFromGalaxies(request, response, next) {
+    try {
+      const galaxyId = request.params.galaxyId //requesting each planet by the Id that is attached to the galaxy and filtering that way 
+      const planets = await planetsService.getPlanetsFromGalaxies(galaxyId) //requesting them from the planetsService bc that is where they are changing/updating 
+      response.send(planets)
     } catch (error) {
       next(error)
     }
